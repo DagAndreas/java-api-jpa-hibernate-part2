@@ -7,7 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("books")
+@RequestMapping("publishers")
 public class PublisherController {
 	private final PublisherRepository publisherRepository;
 
@@ -16,12 +16,12 @@ public class PublisherController {
 	}
 
 	@GetMapping
-	public ResponseEntity<?> getAll(){
+	public ResponseEntity<?> getAllPublishers(){
 		return ResponseEntity.ok(publisherRepository.findAll());
 	}
 
 	@GetMapping("{id}")
-	public ResponseEntity<?> findOne(@PathVariable int id){
+	public ResponseEntity<?> findOneById(@PathVariable int id){
 		Publisher publisher = publisherRepository.findById(id).orElse(null);
 		if (publisher == null){
 			return ResponseEntity.notFound().build();
@@ -40,7 +40,7 @@ public class PublisherController {
 	}
 
 	@PostMapping
-	public ResponseEntity<?> postOne(@RequestParam Publisher publisher){
+	public ResponseEntity<?> postOnePublisher(@RequestParam Publisher publisher){
 		if (incompletePublisher(publisher)){
 			return ResponseEntity.badRequest().build();
 		}
